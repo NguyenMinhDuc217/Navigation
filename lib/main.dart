@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
-  // runApp(const MaterialApp(
-  //   title: 'Navigation Basics',
-  //   home: WaitSignIn(),
-  // ));
+  runApp(const MaterialApp(
+    title: 'Navigation Basics',
+    home: WaitSignIn(),
+  ));
 }
 
 class WaitSignIn extends StatelessWidget {
@@ -16,14 +16,26 @@ class WaitSignIn extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(0xff02bbd2),
         body: Center(
-            child: Column(children: [
-          Expanded(child: Column(children:[Image.asset('images/Logo.PNG'),
-          Text('SignIn',style: TextStyle(fontSize: 60,fontWeight: FontWeight.w400,color: Colors.white)),
-          Text('Speak, friend, and enter',style: TextStyle(fontWeight: FontWeight.w300))])),   
-          Container(padding:EdgeInsets.only(bottom: 150),child:SpinKitFadingCircle(
-            color: Colors.white,
-            size: 50.0,
-          )),
-        ])));
+            child: Column(
+                children: [
+              Image.asset('images/Logo.PNG'),
+              Column(
+                children: [
+                  Text('SignIn',
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                  Text('Speak, friend, and enter',
+                      style: TextStyle(fontWeight: FontWeight.w300)),
+                ],
+              ),
+              Container(
+                  padding: EdgeInsets.only(top: 150),
+                  child: SpinKitFadingCircle(
+                    color: Colors.white,
+                    size: 50.0,
+                  )),
+            ])));
   }
 }
