@@ -31,7 +31,7 @@ class WaitSignIn extends StatelessWidget {
                 ],
               ),
               Container(
-                  padding: EdgeInsets.only(top: 150),
+                  margin: EdgeInsets.only(top: 150),
                   child: SpinKitFadingCircle(
                     color: Colors.white,
                     size: 50.0,
