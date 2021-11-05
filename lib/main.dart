@@ -9,22 +9,24 @@ void main() {
     home: MyApp(),
   ));
 }
-class MyApp extends StatelessWidget{
+
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Widget _mainSignIn=MainSignIn();
+    Widget _mainSignIn = MainSignIn();
     return _mainSignIn;
   }
-  
 }
-class MainSignIn extends StatefulWidget{
+
+class MainSignIn extends StatefulWidget {
   @override
   MainSignInState createState() => MainSignInState();
 }
+
 class MainSignInState extends State<MainSignIn> {
-  final _controller1=TextEditingController();
-  final _controller2=TextEditingController();
+  final _controller1 = TextEditingController();
+  final _controller2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +96,10 @@ class MainSignInState extends State<MainSignIn> {
           style: TextStyle(color: Colors.white),
         ),
         onPressed: () {
-          if(_controller1.text==_controller2.text){
-              Navigator.push(
-              context, MaterialPageRoute(builder: (context) => WaitSignIn()));
+          if (_controller1.text == _controller2.text) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => WaitSignIn()));
           }
-          
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -117,6 +118,64 @@ class MainSignInState extends State<MainSignIn> {
             LoginSection,
             SignInButton,
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ErroSignIn extends StatelessWidget {
+  const ErroSignIn({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    Widget imgsection = Image.asset(
+      'images/logo2.png',
+      alignment: Alignment.center,
+      width: 200,
+      height: 200,
+    );
+    Widget textSection = Container(
+        padding: EdgeInsets.all(50),
+        child: Row(children: [
+          Expanded(
+            child: Text("UPS... couldn't Sign in",
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
+          ),
+          Text("Your username and password don't match.",
+              style: TextStyle(color: Colors.grey),
+              textAlign: TextAlign.center),
+          Text(
+            "Please,try again",
+            style: TextStyle(color: Colors.grey),
+            textAlign: TextAlign.center,
+          )
+        ]));
+
+    Widget TryAgainButton = Container(
+      margin: EdgeInsets.only(top: 200),
+      width: 450,
+      height: 50,
+      child: TextButton(
+        child: Text(
+          'TRY AGAIN',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        ),
+      ),
+    );
+
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        backgroundColor: Color(0xffffffff),
+        body: Column(
+          children: [imgsection, textSection, TryAgainButton],
         ),
       ),
     );
@@ -167,9 +226,9 @@ class WaitSignInState extends State<WaitSignIn> {
   }
 }
 
-class EmailPage extends StatelessWidget{
+class EmailPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(body: Text('Email'));
   }
 }
