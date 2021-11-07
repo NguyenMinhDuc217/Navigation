@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 void main() {
   runApp(const MaterialApp(
     title: 'Navigation Basics',
+    debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
@@ -96,13 +97,32 @@ class MainSignInState extends State<MainSignIn> {
           style: TextStyle(color: Colors.white),
         ),
         onPressed: () {
-          if (_controller1.text == _controller2.text) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => WaitSignIn()));
+          if(_controller1.text.trim()==" "||_controller2.text.trim()==""){
+            showDialog(
+              context: context, 
+              builder: (BuildContext)=>AlertDialog(
+                title: Text('Thông báo'),
+                content: Text('Chưa nhập thông tin!'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: Text("OK"),
+                  ),
+                ],
+              )
+            );
+          }
+          else if(_controller1.text==_controller2.text){
+              Navigator.push(
+              context, MaterialPageRoute(builder: (context) => WaitSignIn()));
           }
           else{
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ErrorSignIn()));
+              context,
+              MaterialPageRoute(builder: (context)=>ErrorSignIn())
+            );
           }
         },
         style: ButtonStyle(
@@ -233,7 +253,27 @@ class WaitSignInState extends State<WaitSignIn> {
 
 class EmailPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Text('Email'));
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey[350],
+        centerTitle: true,
+        title: Text('Mainboxes',
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+            }, 
+            child:Text('Done',
+              style: TextStyle(color: Colors.blue, fontSize: 20),
+              ),
+            )
+        ],
+      ),
+      // bottomNavigationBar: BottomNavigationBar(    
+      // ),
+    );
   }
 }
