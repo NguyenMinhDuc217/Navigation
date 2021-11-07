@@ -245,9 +245,90 @@ class WaitSignInState extends State<WaitSignIn> {
   }
 }
 
-class EmailPage extends StatelessWidget {
+class EmailBoxes{
+  late IconData icon;
+  late Color color;
+  late String lablel;
+  late int number;
+  bool isChecked = false;
+  EmailBoxes(IconData _icon, Color _color, String _lablel, int _number){
+    icon=_icon;
+    color=_color;
+    lablel=_lablel;
+    number=_number;
+  }
+}
+class EmailPage extends StatefulWidget{
+  @override
+  EmailPageState createState()=>EmailPageState();
+}
+class EmailPageState extends State<EmailPage> { 
+List<EmailBoxes> mail=[
+    EmailBoxes(Icons.inbox,Colors.blue,"All inboxes",55),
+    EmailBoxes(Icons.cloud,Colors.blue,"ICloud",14),
+    EmailBoxes(Icons.email,Colors.blue,"Gmail",43),
+    EmailBoxes(Icons.email_outlined,Colors.blue,"Hotmail",12),
+    EmailBoxes(Icons.folder_special_outlined,Colors.blue,"VIP",5),
+    EmailBoxes(Icons.security_outlined,Colors.blue,"Secure",2),
+    EmailBoxes(Icons.circle_notifications_outlined,Colors.blue,"Notificatons",99),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    Widget textMailBoxes=Container(
+      color: Colors.grey[300],
+      padding: EdgeInsets.fromLTRB(5, 10, 0, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('MailBoxes'),
+        ],
+      ),
+    );
+    Widget textSpecialFolder=Container(
+      color: Colors.grey[300],
+      padding: EdgeInsets.fromLTRB(5, 10, 0, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Special_Folder'),
+        ],
+      ),
+    );
+    Row BuildMailBoxes(int stt, IconData icon, Color color, String label, int number){
+  return Row(
+    children: [
+      Expanded(
+        child: Row(
+          children: [
+            Checkbox(
+              checkColor: Colors.red,
+              value: mail[stt].isChecked, 
+              onChanged: (bool? value){
+                setState(() {
+                mail[stt].isChecked=value!;
+                });
+              }
+            ),
+            Icon(
+              icon,
+              color: color,
+            ),
+            Text(
+              label
+            ),
+          ],
+        )
+      ),
+      Container(
+        padding: EdgeInsets.only(right: 20),
+        child: Text(
+        number.toString(),
+      ),
+      )
+    ],
+  );
+}
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[350],
@@ -268,7 +349,25 @@ class EmailPage extends StatelessWidget {
           )
         ],
       ),
-      //bottomNavigationBar: BottomAppBar(child: Text('Delete'),)
+      body: ListView(
+        children: [
+          Container(
+            child: Column(
+              children: [
+                textMailBoxes,
+               BuildMailBoxes(0, mail[0].icon, mail[0].color, mail[0].lablel, mail[0].number),
+               BuildMailBoxes(1, mail[1].icon, mail[1].color, mail[1].lablel, mail[1].number),
+               BuildMailBoxes(2, mail[2].icon, mail[2].color, mail[2].lablel, mail[2].number),
+               BuildMailBoxes(3, mail[3].icon, mail[3].color, mail[3].lablel, mail[3].number),
+               BuildMailBoxes(4, mail[4].icon, mail[4].color, mail[4].lablel, mail[4].number),
+               textSpecialFolder,
+               BuildMailBoxes(5, mail[5].icon, mail[5].color, mail[5].lablel, mail[5].number),
+               BuildMailBoxes(6, mail[6].icon, mail[6].color, mail[6].lablel, mail[6].number),
+              ],
+            ),
+          )
+        ],
+      ),
       persistentFooterButtons:[
         Stack(
           children: <Widget>[
@@ -278,7 +377,16 @@ class EmailPage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+            child: IconButton(onPressed: (){
+              mail.forEach((element) {
+                if(element.isChecked==true){
+                  element.number=0;
+                  element.isChecked=false;
+                }
+                setState(() {});
+              },  
+              );
+            }, icon: Icon(Icons.delete))
           ),
         ])
       ],
