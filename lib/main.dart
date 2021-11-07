@@ -100,6 +100,10 @@ class MainSignInState extends State<MainSignIn> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => WaitSignIn()));
           }
+          else{
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ErrorSignIn()));
+          }
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -124,24 +128,22 @@ class MainSignInState extends State<MainSignIn> {
   }
 }
 
-class ErroSignIn extends StatelessWidget {
-  const ErroSignIn({Key? key}) : super(key: key);
+class ErrorSignIn extends StatelessWidget {
+  const ErrorSignIn({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Widget imgsection = Image.asset(
-      'images/logo2.png',
+      'images/logo.png',
       alignment: Alignment.center,
       width: 200,
       height: 200,
     );
-    Widget textSection = Container(
-        padding: EdgeInsets.all(50),
-        child: Row(children: [
-          Expanded(
-            child: Text("UPS... couldn't Sign in",
+    Widget textSection =Container(
+        padding: EdgeInsets.only(top:30),
+        child: Column(children: [
+          Text("UPS... couldn't Sign in",
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center),
-          ),
           Text("Your username and password don't match.",
               style: TextStyle(color: Colors.grey),
               textAlign: TextAlign.center),
@@ -151,9 +153,8 @@ class ErroSignIn extends StatelessWidget {
             textAlign: TextAlign.center,
           )
         ]));
-
     Widget TryAgainButton = Container(
-      margin: EdgeInsets.only(top: 200),
+      margin: EdgeInsets.only(bottom: 70),
       width: 450,
       height: 50,
       child: TextButton(
@@ -161,7 +162,9 @@ class ErroSignIn extends StatelessWidget {
           'TRY AGAIN',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
         ),
@@ -174,10 +177,12 @@ class ErroSignIn extends StatelessWidget {
       ),
       home: Scaffold(
         backgroundColor: Color(0xffffffff),
-        body: Column(
-          children: [imgsection, textSection, TryAgainButton],
-        ),
-      ),
+        body: Center(child:Column(
+          children: [
+            Expanded(child: Column(children:[imgsection, textSection]),),
+            TryAgainButton
+            ]),
+      )),
     );
   }
 }
