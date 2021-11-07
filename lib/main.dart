@@ -153,7 +153,7 @@ class ErrorSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget imgsection = Image.asset(
-      'images/logo.png',
+      'images/LogoError.JPG',
       alignment: Alignment.center,
       width: 200,
       height: 200,
@@ -229,7 +229,7 @@ class WaitSignInState extends State<WaitSignIn> {
         backgroundColor: Color(0xff02bbd2),
         body: Center(
             child: Column(children: [
-          Image.asset('images/Logo.PNG'),
+          Image.asset('images/Logo.jpg'),
           Column(
             children: [
               Text('SignIn',
