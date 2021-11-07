@@ -97,32 +97,28 @@ class MainSignInState extends State<MainSignIn> {
           style: TextStyle(color: Colors.white),
         ),
         onPressed: () {
-          if(_controller1.text.trim()==" "||_controller2.text.trim()==""){
+          if (_controller1.text.trim() == " " ||
+              _controller2.text.trim() == "") {
             showDialog(
-              context: context, 
-              builder: (BuildContext)=>AlertDialog(
-                title: Text('Thông báo'),
-                content: Text('Chưa nhập thông tin!'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                    child: Text("OK"),
-                  ),
-                ],
-              )
-            );
-          }
-          else if(_controller1.text==_controller2.text){
-              Navigator.push(
-              context, MaterialPageRoute(builder: (context) => WaitSignIn()));
-          }
-          else{
+                context: context,
+                builder: (BuildContext) => AlertDialog(
+                      title: Text('Thông báo'),
+                      content: Text('Chưa nhập thông tin!'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("OK"),
+                        ),
+                      ],
+                    ));
+          } else if (_controller1.text == _controller2.text) {
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context)=>ErrorSignIn())
-            );
+                context, MaterialPageRoute(builder: (context) => WaitSignIn()));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ErrorSignIn()));
           }
         },
         style: ButtonStyle(
@@ -158,12 +154,12 @@ class ErrorSignIn extends StatelessWidget {
       width: 200,
       height: 200,
     );
-    Widget textSection =Container(
-        padding: EdgeInsets.only(top:30),
+    Widget textSection = Container(
+        padding: EdgeInsets.only(top: 30),
         child: Column(children: [
           Text("UPS... couldn't Sign in",
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center),
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center),
           Text("Your username and password don't match.",
               style: TextStyle(color: Colors.grey),
               textAlign: TextAlign.center),
@@ -191,18 +187,16 @@ class ErrorSignIn extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      backgroundColor: Color(0xffffffff),
+      body: Center(
+        child: Column(children: [
+          Expanded(
+            child: Column(children: [imgsection, textSection]),
+          ),
+          TryAgainButton
+        ]),
       ),
-      home: Scaffold(
-        backgroundColor: Color(0xffffffff),
-        body: Center(child:Column(
-          children: [
-            Expanded(child: Column(children:[imgsection, textSection]),),
-            TryAgainButton
-            ]),
-      )),
     );
   }
 }
@@ -253,27 +247,41 @@ class WaitSignInState extends State<WaitSignIn> {
 
 class EmailPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[350],
         centerTitle: true,
-        title: Text('Mainboxes',
+        title: Text(
+          'Mainboxes',
           style: TextStyle(color: Colors.black),
         ),
         actions: <Widget>[
           TextButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pop(context);
-            }, 
-            child:Text('Done',
+            },
+            child: Text(
+              'Done',
               style: TextStyle(color: Colors.blue, fontSize: 20),
-              ),
-            )
+            ),
+          )
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(    
-      // ),
+      //bottomNavigationBar: BottomAppBar(child: Text('Delete'),)
+      persistentFooterButtons:[
+        Stack(
+          children: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Text('Delete',style: TextStyle(fontSize:24)),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+          ),
+        ])
+      ],
     );
   }
 }
